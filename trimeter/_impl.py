@@ -6,24 +6,6 @@ import outcome
 from async_generator import async_generator, yield_, asynccontextmanager
 import attr
 
-# Issues:
-# - write tests
-# - write docs
-# - which patterns should be provided and what should they be called?
-#   - result handling: discard, send, incremental, lump at the end
-#   - input specification: fn+iterable, iterable-of-fns
-#   for incremental,
-#     async with map(...) -vs- async with await nursery.start(map, ...)
-# - ordered=True? (with each task waiting for previous to finish before
-#   reporting in, so backpressure works -- run_all does *not* use this, b/c it
-#   has infinite buffer so it doesn't want to apply backpressure)
-# - keyed meters
-# - user-defined meters
-#   - maybe require at least 1 meter? kind of annoying for run_all maybe...
-# - support multiple iterables (like map)?
-# - interaction between KeyboardInterrupt and capture_outcome?
-# - meaningful task names
-
 
 @async_generator
 async def iter2aiter(iterable):
