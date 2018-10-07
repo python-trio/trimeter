@@ -5,9 +5,6 @@ Thanks for using cookiecutter-trio! This is your project now; you can
 customize it however you like. Here's some reminders of things you
 might want to do to get started:
 
-* Search the source tree for COOKIECUTTER-TRIO-TODO to find other
-  places to fill in.
-
 * Enable `Read the Docs <https://readthedocs.org>`__. (Note: this
   project contains a ``.readthedocs.yml`` file that should be enough
   to get things working.)
@@ -21,8 +18,6 @@ might want to do to get started:
 
   If that's not what you want, then you can trim the list by modifying
   (or deleting) ``.travis.yml``, ``.appveyor.yml``, ``ci/travis.sh``.
-
-* Enable `Codecov <https://codecov.io>`__ for your repo.
 
 * File bugs or pull requests on `cookiecutter-trio
   <https://github.com/python-trio/cookiecutter-trio>`__ reporting any

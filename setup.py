@@ -15,32 +15,25 @@ setup(
     license="MIT -or- Apache License 2.0",
     packages=find_packages(),
     install_requires=[
-        "trio",
+        "trio >= 0.9.0",  # For channels
+        "outcome",
+        "async_generator",
+        "attrs",
     ],
     keywords=[
-        # COOKIECUTTER-TRIO-TODO: add some keywords
-        # "async", "io", "networking", ...
+        "async", "scheduler", "trio",
     ],
     python_requires=">=3.5",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "License :: OSI Approved :: Apache Software License",
         "Framework :: Trio",
-        # COOKIECUTTER-TRIO-TODO: Remove any of these classifiers that don't
-        # apply:
         "Operating System :: POSIX :: Linux",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
-        # COOKIECUTTER-TRIO-TODO: Consider adding trove classifiers for:
-        #
-        # - Development Status
-        # - Intended Audience
-        # - Topic
-        #
-        # For the full list of options, see:
-        #   https://pypi.org/classifiers/
+        "Intended Audience :: Developers",
     ],
 )
