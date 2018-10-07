@@ -19,8 +19,7 @@ import attr
 #   has infinite buffer so it doesn't want to apply backpressure)
 # - keyed meters
 # - user-defined meters
-#   - maybe make max_at_once not required, b/c people may prefer to pass
-#     meters? maybe require at least 1 meter?
+#   - maybe require at least 1 meter? kind of annoying for run_all maybe...
 # - support multiple iterables (like map)?
 # - interaction between KeyboardInterrupt and capture_outcome?
 # - meaningful task names
@@ -171,7 +170,7 @@ async def run_on_each(
         async_fn,
         iterable,
         *,
-        max_at_once,
+        max_at_once=None,
         max_per_second=None,
         max_burst=1,
         iterable_is_async="guess",
@@ -181,8 +180,10 @@ async def run_on_each(
         include_value=False,
 ):
     try:
+        # XX: allow users to pass in their own custom meters
         meters = []
-        meter_states.append(MaxMeter(max_at_once))
+        if max_at_once is not None:
+            meter_states.append(MaxMeter(max_at_once))
         if max_per_second is not None:
             meters.append(TokenBucketMeter(max_per_second, max_burst))
         meter_states = [meter.new_state() for meter in meters]
@@ -222,13 +223,38 @@ async def run_on_each(
 
 @asynccontextmanager
 @async_generator
-async def amap(async_fn, iterable, *, max_buffer_size=0, **kwargs):
+async def amap(
+        async_fn,
+        iterable,
+        *,
+        max_at_once=None,
+        max_per_second=None,
+        max_burst=1,
+        iterable_is_async="guess",
+        capture_outcome=False,
+        include_index=False,
+        include_value=False,
+        max_buffer_size=0
+):
     send_channel, receive_channel = trio.open_memory_channel(max_buffer_size)
     async with receive_channel:
         async with trio.open_nursery() as nursery:
-            kwargs["send_to"] = send_channel
             nursery.start_soon(
-                partial(run_on_each, async_fn, iterable, **kwargs)
+                partial(
+                    run_on_each,
+                    # Pass through:
+                    async_fn,
+                    iterable,
+                    max_at_once=max_at_once,
+                    max_per_second=max_per_second,
+                    max_burst=max_burst,
+                    iterable_is_async=iterable_is_async,
+                    capture_outcome=capture_outcome,
+                    include_index=include_index,
+                    include_value=include_value,
+                    # Not a simple pass-through:
+                    send_to=send_channel,
+                )
             )
             await yield_(receive_channel)
 
@@ -236,7 +262,7 @@ async def amap(async_fn, iterable, *, max_buffer_size=0, **kwargs):
 async def run_all(
         async_fns,
         *,
-        max_at_once,
+        max_at_once=None,
         max_per_second=None,
         max_burst=1,
         iterable_is_async="guess",
