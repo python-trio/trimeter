@@ -57,8 +57,14 @@ down to 1 per second. No problem:
        fetch_and_process, urls, max_at_once=5, max_per_second=1
    )
 
+What if we don't know the whole list of urls up front? No worries,
+just pass in an async iterable instead, and Trimeter will do the right
+thing.
+
 What if we want to get the result from each call as it finishes, so we
-can do something further with it?
+can do something further with it? Just use ``amap`` (= short for
+"async `map
+<https://docs.python.org/3/library/functions.html#map>`__"):
 
 .. code-block:: python3
 
@@ -68,11 +74,14 @@ can do something further with it?
        async for result in results:
            ...
 
+Of course ``amap`` also accepts throttling options like
+``max_at_once``, ``max_per_second``, etc.
+
 What if we want to use the `outcome library
 <https://outcome.readthedocs.io/>`__ to capture exceptions, so one
 call crashing doesn't terminate the whole program? And also, we want
 to pass through the original url alongside each result, so we know
-which result is which?
+which result goes with which url?
 
 .. code-block:: python3
 
