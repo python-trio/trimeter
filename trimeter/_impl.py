@@ -1,5 +1,6 @@
 from functools import partial
 import operator
+import abc
 
 import trio
 import outcome
@@ -134,7 +135,7 @@ async def _worker(
             result = (value, result)
         elif config.include_index and config.include_value:
             result = (index, value, result)
-        await send_to.send(result)
+        await config.send_to.send(result)
     for meter_state in config.meter_states:
         meter_state.notify_task_finished()
 
