@@ -1,0 +1,1 @@
+Fix :func:`trimeter.run_on_each()`/`~trimeter.amap()` raised :exc:`TypeError` when ``max_per_second`` option is used.

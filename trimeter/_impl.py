@@ -76,8 +76,8 @@ class TokenBucketMeter:
     max_burst = attr.ib(default=1, converter=operator.index, validator=_check_positive)
 
     def __attrs_post_init__(self):
-        _check_positive("max_per_second", self.max_per_second)
-        _check_positive("max_burst", self.max_burst)
+        _check_positive(self, "max_per_second", self.max_per_second)
+        _check_positive(self, "max_burst", self.max_burst)
 
     def new_state(self):
         return TokenBucketState(self)
