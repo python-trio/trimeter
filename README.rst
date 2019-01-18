@@ -21,8 +21,7 @@
 Warning
 =======
 
-This library isn't ready for release yet. (It even depends on an
-unreleased version of trio!) Feedback welcome!
+This library isn't ready for release yet. Feedback welcome!
 
 
 Trimeter
