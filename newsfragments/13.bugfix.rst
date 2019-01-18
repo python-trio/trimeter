@@ -1,0 +1,1 @@
+Fix :func:`trimeter.run_on_each()`/:func:`amap()` raised :exc:`UnboundLocalError` when ``max_at_once`` was present.
