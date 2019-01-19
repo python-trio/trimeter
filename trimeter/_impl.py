@@ -166,7 +166,7 @@ async def run_on_each(
         # XX: allow users to pass in their own custom meters
         meters = []
         if max_at_once is not None:
-            meter_states.append(MaxMeter(max_at_once))
+            meters.append(MaxMeter(max_at_once))
         if max_per_second is not None:
             meters.append(TokenBucketMeter(max_per_second, max_burst))
         meter_states = [meter.new_state() for meter in meters]
