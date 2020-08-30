@@ -1,6 +1,5 @@
 language: python
-sudo: false
-dist: trusty
+dist: focal
 
 matrix:
   include:
@@ -9,21 +8,21 @@ matrix:
       env: CHECK_DOCS=1
     - python: 3.8
       env: CHECK_FORMATTING=1
-    # The pypy tests are slow, so list them early
-    - python: pypy3
+    # The pypy tests are slow, so we list them first
+    - python: pypy3.6-7.2.0
+      dist: bionic
+    - language: generic
+      env: PYPY_NIGHTLY_BRANCH=py3.6
     # Uncomment if you want to test on pypy nightly:
     # - language: generic
     #   env: USE_PYPY_NIGHTLY=1
-    - python: 3.6
+    - python: 3.6-dev
     # As of 2018-07-05, Travis's 3.7 and 3.8 builds only work if you
     # use dist: xenial AND sudo: required
     # See: https://github.com/python-trio/trio/pull/556#issuecomment-402879391
-    - python: 3.7
-      dist: xenial
-      sudo: required
-    - python: 3.8
-      dist: xenial
-      sudo: required
+    - python: 3.7-dev
+    - python: 3.8-dev
+    - python: 3.9-dev
 
 script:
   - ci/travis.sh
