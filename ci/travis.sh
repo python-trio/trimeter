@@ -77,6 +77,7 @@ EOF
     exit 0
 fi
 
+pip freeze
 python setup.py sdist --formats=zip
 pip install -U dist/*.zip
 
