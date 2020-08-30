@@ -53,7 +53,7 @@ if [ "$USE_PYPY_RELEASE_VERSION" != "" ]; then
     source testenv/bin/activate
 fi
 
-pip install -Ur pip setuptools wheel
+pip install -U pip setuptools wheel
 
 if [ "$CHECK_FORMATTING" = "1" ]; then
     pip install yapf==${YAPF_VERSION}
@@ -78,7 +78,7 @@ EOF
 fi
 
 python setup.py sdist --formats=zip
-pip install -Ur dist/*.zip
+pip install -U dist/*.zip
 
 if [ "$CHECK_DOCS" = "1" ]; then
     pip install -Ur ci/rtd-requirements.txt
