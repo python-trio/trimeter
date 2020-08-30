@@ -77,9 +77,8 @@ EOF
     exit 0
 fi
 
-pip freeze
 python setup.py sdist --formats=zip
-pip install -U dist/*.zip
+pip install dist/*.zip
 
 if [ "$CHECK_DOCS" = "1" ]; then
     pip install -Ur ci/rtd-requirements.txt
