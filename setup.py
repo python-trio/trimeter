@@ -21,7 +21,9 @@ setup(
         "attrs",
     ],
     keywords=[
-        "async", "scheduler", "trio",
+        "async",
+        "scheduler",
+        "trio",
     ],
     python_requires=">=3.6",
     classifiers=[
