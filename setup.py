@@ -10,6 +10,7 @@ setup(
     description="A simple but powerful job scheduler for Trio programs",
     url="https://github.com/python-trio/trimeter",
     long_description=LONG_DESC,
+    long_description_content_type="text/x-rst",
     author="Nathaniel J. Smith",
     author_email="njs@pobox.com",
     license="MIT -or- Apache License 2.0",
