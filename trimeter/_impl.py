@@ -56,7 +56,8 @@ class MaxMeter:
 class MaxState:
     def __init__(self, max_meter):
         self.sem = trio.Semaphore(
-            initial_value=max_meter.max_at_once, max_value=max_meter.max_at_once
+            initial_value=max_meter.max_at_once,
+            max_value=max_meter.max_at_once
         )
 
     async def wait_task_can_start(self):
@@ -73,11 +74,13 @@ class MaxState:
 @attr.s(frozen=True)
 class TokenBucketMeter:
     max_per_second = attr.ib(converter=float, validator=_check_positive)
-    max_burst = attr.ib(default=1, converter=operator.index, validator=_check_positive)
+    max_burst = attr.ib(
+        default=1, converter=operator.index, validator=_check_positive
+    )
 
     def __attrs_post_init__(self):
-        _check_positive("max_per_second", self.max_per_second)
-        _check_positive("max_burst", self.max_burst)
+        _check_positive(self, "max_per_second", self.max_per_second)
+        _check_positive(self, "max_burst", self.max_burst)
 
     def new_state(self):
         return TokenBucketState(self)
@@ -121,9 +124,7 @@ class TokenBucketState:
 
 
 # XX should we have a special-case to allow KeyboardInterrupt to pass through?
-async def _worker(
-        async_fn, value, index, config
-):
+async def _worker(async_fn, value, index, config):
     if config.capture_outcome:
         result = await outcome.acapture(async_fn, value)
     else:
@@ -166,7 +167,7 @@ async def run_on_each(
         # XX: allow users to pass in their own custom meters
         meters = []
         if max_at_once is not None:
-            meter_states.append(MaxMeter(max_at_once))
+            meters.append(MaxMeter(max_at_once))
         if max_per_second is not None:
             meters.append(TokenBucketMeter(max_per_second, max_burst))
         meter_states = [meter.new_state() for meter in meters]
@@ -201,7 +202,6 @@ async def run_on_each(
     finally:
         if send_to is not None:
             await send_to.aclose()
-
 
 
 @asynccontextmanager
