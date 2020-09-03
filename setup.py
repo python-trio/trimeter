@@ -21,9 +21,11 @@ setup(
         "attrs",
     ],
     keywords=[
-        "async", "scheduler", "trio",
+        "async",
+        "scheduler",
+        "trio",
     ],
-    python_requires=">=3.5",
+    python_requires=">=3.6",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "License :: OSI Approved :: Apache Software License",

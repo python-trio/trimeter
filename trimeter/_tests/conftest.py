@@ -5,6 +5,7 @@ import inspect
 import pytest
 from trio.testing import MockClock, trio_test
 
+
 @pytest.fixture
 def mock_clock():
     return MockClock()
