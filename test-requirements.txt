@@ -4,15 +4,24 @@
 #
 #    pip-compile --output-file=test-requirements.txt test-requirements.in
 #
-attrs==20.1.0             # via pytest
+async-generator==1.10     # via pytest-trio, trio
+attrs==20.1.0             # via outcome, pytest, trio
 coverage==5.2.1           # via pytest-cov
+idna==2.10                # via trio
+importlib-metadata==1.7.0  # via pluggy, pytest
 iniconfig==1.0.1          # via pytest
 more-itertools==8.5.0     # via pytest
+outcome==1.0.1            # via pytest-trio, trio
 packaging==20.4           # via pytest
 pluggy==0.13.1            # via pytest
 py==1.9.0                 # via pytest
 pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.1        # via -r test-requirements.in
-pytest==6.0.1             # via -r test-requirements.in, pytest-cov
+pytest-trio==0.6.0        # via -r test-requirements.in
+pytest==6.0.1             # via -r test-requirements.in, pytest-cov, pytest-trio
 six==1.15.0               # via packaging
+sniffio==1.1.0            # via trio
+sortedcontainers==2.2.2   # via trio
 toml==0.10.1              # via pytest
+trio==0.16.0              # via pytest-trio
+zipp==3.1.0               # via importlib-metadata
